@@ -1,0 +1,9 @@
+{
+  "name": "shine-docs",
+  "description": "임의의 문서(기획서·실험보고서·회의록·PR 등)를 원문에 충실하게 재구조화해 가독성 높은 HTML/Markdown으로 만드는 스킬",
+  "version": "1.0.0",
+  "author": {
+    "name": "Leo-Moooon",
+    "url": "https://github.com/Leo-Moooon"
+  }
+}
