@@ -1,0 +1,20 @@
+{
+  "name": "shine-docs",
+  "interface": {
+    "displayName": "Shine Docs"
+  },
+  "plugins": [
+    {
+      "name": "shine-docs",
+      "source": {
+        "source": "url",
+        "url": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

@@ -1,9 +1,20 @@
 {
   "name": "shine-docs",
   "description": "문서·코드 변경을 가독성 높은 산출물로 만드는 스킬 세트: document-refactor(문서 재구조화 HTML/Markdown), explain-diff-html(diff/PR 인터랙티브 HTML 해설)",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": {
     "name": "Leo-Moooon",
     "url": "https://github.com/Leo-Moooon"
-  }
+  },
+  "homepage": "https://github.com/Leo-Moooon/shine-docs",
+  "repository": "https://github.com/Leo-Moooon/shine-docs",
+  "license": "MIT",
+  "keywords": [
+    "documents",
+    "refactoring",
+    "diff",
+    "explanation",
+    "html",
+    "markdown"
+  ]
 }

@@ -1,0 +1,32 @@
+{
+  "name": "shine-docs",
+  "version": "1.2.0",
+  "description": "Skill set that turns documents and code changes into highly readable outputs: document-refactor (document restructuring to HTML/Markdown) and explain-diff-html (interactive HTML explanation of a diff/PR).",
+  "author": {
+    "name": "Leo-Moooon",
+    "url": "https://github.com/Leo-Moooon"
+  },
+  "homepage": "https://github.com/Leo-Moooon/shine-docs",
+  "license": "MIT",
+  "keywords": [
+    "documents",
+    "refactoring",
+    "diff",
+    "explanation",
+    "html",
+    "markdown"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Shine Docs",
+    "shortDescription": "Restructure documents and explain diffs as readable HTML/Markdown",
+    "longDescription": "Use Shine Docs to restructure arbitrary documents into type-appropriate logical structures with a factuality-gated review loop, and to produce rich interactive HTML explanations of code changes.",
+    "developerName": "Leo-Moooon",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/Leo-Moooon/shine-docs"
+  }
+}

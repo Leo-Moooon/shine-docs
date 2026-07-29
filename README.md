@@ -1,6 +1,6 @@
 # shine-docs
 
-문서와 코드 변경을 **가독성 높은 산출물(HTML/Markdown)** 로 만드는 **Claude Code 스킬 세트**입니다.
+문서와 코드 변경을 **가독성 높은 산출물(HTML/Markdown)** 로 만드는 **코딩 에이전트용 스킬 세트**입니다. Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot CLI, Kimi Code에서 플러그인/확장으로 설치해 쓸 수 있습니다.
 
 ## 스킬 목록
 
@@ -25,7 +25,9 @@ diff·브랜치·PR 등 **코드 변경을 풍부한 인터랙티브 HTML 해설
 
 ## 설치
 
-Claude Code에서:
+에이전트(하네스)별로 설치 방법이 다릅니다. 여러 에이전트를 쓰면 각각 설치하세요.
+
+### Claude Code
 
 ```
 /plugin marketplace add Leo-Moooon/shine-docs
@@ -39,9 +41,52 @@ claude plugin marketplace add Leo-Moooon/shine-docs
 claude plugin install shine-docs@shine-docs
 ```
 
+### Codex CLI
+
+```
+/plugins
+```
+
+플러그인 검색 화면에서 이 레포 URL(`https://github.com/Leo-Moooon/shine-docs`)로 설치하거나, 커스텀 마켓플레이스로 등록해 설치합니다.
+
+### Cursor
+
+Cursor Agent 채팅에서:
+
+```
+/add-plugin https://github.com/Leo-Moooon/shine-docs
+```
+
+### Gemini CLI
+
+```
+gemini extensions install https://github.com/Leo-Moooon/shine-docs
+```
+
+업데이트:
+
+```
+gemini extensions update shine-docs
+```
+
+### GitHub Copilot CLI
+
+```
+copilot plugin marketplace add Leo-Moooon/shine-docs
+copilot plugin install shine-docs@shine-docs
+```
+
+### Kimi Code
+
+```
+/plugins install https://github.com/Leo-Moooon/shine-docs
+```
+
+> OpenCode·Pi 등 커스텀 로더 코드가 필요한 하네스는 아직 지원하지 않습니다.
+
 ## 사용
 
-설치 후 해당 맥락이면 Claude가 자동으로 불러오거나, 직접 호출합니다.
+설치 후 해당 맥락이면 에이전트가 자동으로 불러오거나, 직접 호출합니다. Claude Code 기준:
 
 ```
 /shine-docs:document-refactor    # 문서 재구조화 — 대상 문서, 출력 모드(HTML/MD), 저장 위치를 물어봄
@@ -50,22 +95,28 @@ claude plugin install shine-docs@shine-docs
 
 ## 구조
 
+스킬 본체(`skills/`)는 하나이고, 에이전트별 매니페스트가 이를 공유합니다.
+
 ```
 shine-docs/
-├── .claude-plugin/marketplace.json
-└── plugins/shine-docs/
-    ├── .claude-plugin/plugin.json
-    └── skills/
-        ├── document-refactor/
-        │   ├── SKILL.md
-        │   └── templates/        # 문서 유형별 섹션 골격 6종
-        └── explain-diff-html/
-            └── SKILL.md
+├── skills/                       # 공용 스킬 본체 (모든 에이전트가 공유)
+│   ├── document-refactor/
+│   │   ├── SKILL.md
+│   │   └── templates/            # 문서 유형별 섹션 골격 6종
+│   └── explain-diff-html/
+│       └── SKILL.md
+├── .claude-plugin/               # Claude Code (marketplace.json + plugin.json)
+├── .codex-plugin/plugin.json     # Codex
+├── .cursor-plugin/plugin.json    # Cursor
+├── .kimi-plugin/plugin.json      # Kimi Code
+├── .agents/plugins/marketplace.json  # GitHub Copilot CLI
+├── gemini-extension.json         # Gemini CLI
+└── GEMINI.md                     # Gemini 컨텍스트 파일 (스킬 라우팅)
 ```
 
 ## 요구사항
 
-- Claude Code (플러그인·스킬 지원 버전)
+- 플러그인·스킬을 지원하는 코딩 에이전트 (Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot CLI, Kimi Code)
 - 스킬 내용은 document-refactor는 한국어, explain-diff-html은 영어입니다.
 
 ## 라이선스
