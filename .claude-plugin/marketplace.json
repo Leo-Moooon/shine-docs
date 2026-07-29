@@ -1,6 +1,6 @@
 {
   "name": "shine-docs",
-  "description": "임의의 문서를 원문에 충실하게 논리 구조로 재구조화하는 Claude Code 스킬",
+  "description": "문서·코드 변경을 가독성 높은 산출물로 만드는 Claude Code 스킬 마켓플레이스",
   "owner": {
     "name": "Leo-Moooon",
     "url": "https://github.com/Leo-Moooon"
@@ -9,7 +9,7 @@
     {
       "name": "shine-docs",
       "source": "./plugins/shine-docs",
-      "description": "document-refactor 스킬: 문서를 가독성 높은 HTML/Markdown으로 재구조화 (원문 밖 유추 금지)"
+      "description": "document-refactor: 문서를 HTML/Markdown으로 재구조화(원문 밖 유추 금지) · explain-diff-html: diff/PR을 인터랙티브 HTML로 해설"
     }
   ]
 }
