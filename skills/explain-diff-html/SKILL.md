@@ -1,6 +1,6 @@
 ---
 name: explain-diff-html
-description: Use when the user asks for a rich explanation of a code change, diff, branch, or PR. Produces HTML output.
+description: Legacy skill kept for direct invocation (/explain-diff-html) and backward compatibility only. For natural-language requests to explain a code change, diff, branch, or PR, use write-document (diff_explanation type) instead. Produces HTML output.
 ---
 
 # Explain Diff
