@@ -10,14 +10,23 @@
 
 핵심 원칙은 **"자명한 사실만"** 입니다. 원문에서 확인 가능한 내용과 3단논법 수준의 당연한 도출만 다루고, **원문 밖 유추는 하지 않습니다**. 이 규율을 사실성 리뷰어(하드 게이트)가 강제합니다.
 
-- **유형 분류**: `templates/`의 문서 유형(기획서·실험보고서·회의록·PR·제안서·기본) 중 맞는 구조를 골라 적용
+- **유형 분류**: 공용 템플릿 풀 `skills/templates/`의 문서 유형 중 맞는 구조를 골라 적용
 - **재구조화**: 원문 내용을 템플릿 섹션에 재배치. 근거 없는 필수 섹션은 공란으로 남겨 "문서가 안 다루는 논점"을 드러냄
 - **리뷰 루프**: 작성자와 분리된 두 리뷰어(사실성·가독성)가 최대 3라운드 검토
 - **산출**: 자기완결 HTML(인라인 CSS/JS, 인터랙티브 Quiz) 또는 Markdown(표·mermaid, 접이식 Q&A). 걸러진 유추·미해결 이슈·공란 섹션은 부록(Audit Trail)에 기록
 
-### explain-diff-html — 코드 변경 해설
+### write-document — 문서 신규 작성
 
-diff·브랜치·PR 등 **코드 변경을 풍부한 인터랙티브 HTML 해설**로 만듭니다.
+원문 없이 **지금부터 써야 하는 문서**를 유형별 섹션 골격에 맞춰 새로 작성합니다. document-refactor와 같은 **"자명한 사실만"** 규율을 따르되, 입력은 원문이 아니라 대화 맥락·코드베이스에서 확인한 사실·요청자의 진술입니다.
+
+- **지원 유형 6종**: issue/backlog 티켓 · 버그 티켓 · PR 본문 · 대화용 간략 제안(슬랙 등) · 코드 변경 해설(diff_explanation) · 일반 문서(폴백)
+- **인터랙티브 플로우**: 유형 → 강조 사항 → Quiz(기본 off, diff_explanation만 기본 on) → 출력 방식(파일 export / 대화 출력) 순으로 질문
+- **공란 규칙**: 필수 섹션인데 근거가 없으면 비워 두고 사유를 한 줄로 남김 — 공란 자체가 문서의 결함을 드러내는 신호
+- **리뷰 opt-in**: 초안 작성 후 리뷰 루프 실행 여부를 확인(proposal_chat은 단일 패스, 나머지는 2리뷰어 최대 3라운드 제안)
+
+### explain-diff-html — 코드 변경 해설 (하위호환)
+
+diff·브랜치·PR 등 **코드 변경을 풍부한 인터랙티브 HTML 해설**로 만듭니다. **직접 호출 전용**으로 유지되는 스킬이며, 자연어 요청은 write-document의 diff_explanation 유형이 담당합니다.
 
 - **구성**: Background(주변 코드 탐색 기반 배경 설명) → Intuition(토이 데이터·다이어그램으로 핵심 직관) → Code(변경 워크스루) → Quiz(이해도 확인용 5문항 인터랙티브 객관식)
 - **산출**: 목차·다이어그램·콜아웃을 갖춘 자기완결 HTML 한 장 (모바일 대응)
@@ -90,7 +99,8 @@ copilot plugin install shine-docs@shine-docs
 
 ```
 /shine-docs:document-refactor    # 문서 재구조화 — 대상 문서, 출력 모드(HTML/MD), 저장 위치를 물어봄
-/shine-docs:explain-diff-html    # 코드 변경 해설 — diff/브랜치/PR을 지정
+/shine-docs:write-document       # 문서 신규 작성 — 유형(티켓/PR/제안/해설/일반), 강조 사항, 출력 방식을 물어봄
+/shine-docs:explain-diff-html    # 코드 변경 해설 — diff/브랜치/PR을 지정 (하위호환 직접 호출용)
 ```
 
 ## 구조
@@ -100,9 +110,11 @@ copilot plugin install shine-docs@shine-docs
 ```
 shine-docs/
 ├── skills/                       # 공용 스킬 본체 (모든 에이전트가 공유)
+│   ├── templates/                # 공용 템플릿 풀 — 문서 유형별 섹션 골격 12종
 │   ├── document-refactor/
-│   │   ├── SKILL.md
-│   │   └── templates/            # 문서 유형별 섹션 골격 6종
+│   │   └── SKILL.md
+│   ├── write-document/
+│   │   └── SKILL.md
 │   └── explain-diff-html/
 │       └── SKILL.md
 ├── .claude-plugin/               # Claude Code (marketplace.json + plugin.json)
@@ -117,7 +129,7 @@ shine-docs/
 ## 요구사항
 
 - 플러그인·스킬을 지원하는 코딩 에이전트 (Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot CLI, Kimi Code)
-- 스킬 내용은 document-refactor는 한국어, explain-diff-html은 영어입니다.
+- 스킬 내용은 document-refactor·write-document는 한국어, explain-diff-html은 영어입니다.
 
 ## 라이선스
 
