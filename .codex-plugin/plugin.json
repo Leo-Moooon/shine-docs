@@ -1,6 +1,6 @@
 {
   "name": "shine-docs",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Skill set that turns documents and code changes into highly readable outputs: document-refactor (restructure an existing document to HTML/Markdown), write-document (write a new ticket, PR description, chat proposal, diff explanation, or general document from scratch), and explain-diff-html (legacy, direct invocation only).",
   "author": {
     "name": "Leo-Moooon",
