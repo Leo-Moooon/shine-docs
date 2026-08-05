@@ -1,4 +1,4 @@
-# PR 회고 (pull_request)
+# PR 회고 (pr_retrospective)
 
 코드 변경(PR)을 설명·회고하는 문서.
 
