@@ -111,6 +111,7 @@ copilot plugin install shine-docs@shine-docs
 shine-docs/
 ├── skills/                       # 공용 스킬 본체 (모든 에이전트가 공유)
 │   ├── templates/                # 공용 템플릿 풀 — 문서 유형별 섹션 골격 12종
+│   ├── style/                    # 공용 문체 스타일 가이드 (writing-style.md)
 │   ├── document-refactor/
 │   │   └── SKILL.md
 │   ├── write-document/
