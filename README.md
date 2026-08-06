@@ -24,6 +24,15 @@
 - **공란 규칙**: 필수 섹션인데 근거가 없으면 비워 두고 사유를 한 줄로 남김 — 공란 자체가 문서의 결함을 드러내는 신호
 - **리뷰 opt-in**: 초안 작성 후 리뷰 루프 실행 여부를 확인(proposal_chat은 단일 패스, 나머지는 2리뷰어 최대 3라운드 제안)
 
+### write-wiki — 티켓 아카이브 작성
+
+티켓/브랜치/워크트리 단위 작업이 끝날 때, **"어떤 실험·작업을 했고 무엇을 왜 결정했나"** 를 개인 옵시디언 vault에 아카이브합니다. 용도는 추후 포트폴리오 정리 시의 원천 데이터입니다 — 파일 보관이 아니라 **실험 기록과 결정 근거를 문서로 남기는 것**이 우선입니다.
+
+- **구조 규칙**: `<티켓번호> <간단한 설명>/` 폴더에 `<티켓번호> README.md`(진입점) + 실험 단위로 분할한 `<티켓번호> REPORT N (<주제>).md`. 파생/하위 티켓은 부모 폴더 하위에 중첩
+- **첨부 선별**: 스크립트·코드는 첨부하지 않고 방법을 문서로 서술. 자기완결 증빙(HTML·스크린샷)만 티켓번호 접두사로 rename해 보관. 민감 데이터 제외
+- **규율 계승**: write-document와 같은 "자명한 사실만" 규율 — 수치는 REPORT/결과 파일에서 그대로, 근거 없는 항목은 공란 + 사유
+- **개인 설정 분리**: vault 루트 경로·티켓번호 컨벤션은 스킬에 하드코딩되어 있지 않습니다 — 사용자의 전역 설정(CLAUDE.md 등 하네스 메모리)에서 읽고, 없으면 작성 전에 물어봅니다
+
 ### explain-diff-html — 코드 변경 해설 (하위호환)
 
 diff·브랜치·PR 등 **코드 변경을 풍부한 인터랙티브 HTML 해설**로 만듭니다. **직접 호출 전용**으로 유지되는 스킬이며, 자연어 요청은 write-document의 diff_explanation 유형이 담당합니다.
@@ -100,6 +109,7 @@ copilot plugin install shine-docs@shine-docs
 ```
 /shine-docs:document-refactor    # 문서 재구조화 — 대상 문서, 출력 모드(HTML/MD), 저장 위치를 물어봄
 /shine-docs:write-document       # 문서 신규 작성 — 유형(티켓/PR/제안/해설/일반), 강조 사항, 출력 방식을 물어봄
+/shine-docs:write-wiki           # 티켓 아카이브 — 마감된 티켓 작업의 실험·결정 기록을 옵시디언 vault에 작성
 /shine-docs:explain-diff-html    # 코드 변경 해설 — diff/브랜치/PR을 지정 (하위호환 직접 호출용)
 ```
 
@@ -116,6 +126,8 @@ shine-docs/
 │   │   └── SKILL.md
 │   ├── write-document/
 │   │   └── SKILL.md
+│   ├── write-wiki/
+│   │   └── SKILL.md
 │   └── explain-diff-html/
 │       └── SKILL.md
 ├── .claude-plugin/               # Claude Code (marketplace.json + plugin.json)
@@ -130,7 +142,7 @@ shine-docs/
 ## 요구사항
 
 - 플러그인·스킬을 지원하는 코딩 에이전트 (Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot CLI, Kimi Code)
-- 스킬 내용은 document-refactor·write-document는 한국어, explain-diff-html은 영어입니다.
+- 스킬 내용은 document-refactor·write-document·write-wiki는 한국어, explain-diff-html은 영어입니다.
 
 ## 라이선스
 
