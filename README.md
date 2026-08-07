@@ -22,7 +22,16 @@
 - **지원 유형 6종**: issue/backlog 티켓 · 버그 티켓 · PR 본문 · 대화용 간략 제안(슬랙 등) · 코드 변경 해설(diff_explanation) · 일반 문서(폴백)
 - **인터랙티브 플로우**: 유형 → 강조 사항 → Quiz(기본 off, diff_explanation만 기본 on) → 출력 방식(파일 export / 대화 출력) 순으로 질문
 - **공란 규칙**: 필수 섹션인데 근거가 없으면 비워 두고 사유를 한 줄로 남김 — 공란 자체가 문서의 결함을 드러내는 신호
-- **리뷰 opt-in**: 초안 작성 후 리뷰 루프 실행 여부를 확인(proposal_chat은 단일 패스, 나머지는 2리뷰어 최대 3라운드 제안)
+- **리뷰 opt-in**: 초안 작성 후 리뷰 루프 실행 여부를 확인(proposal_chat은 단일 패스, 나머지는 최대 3라운드) — 판정은 review-document에 위임
+
+### review-document — 문서 품질 리뷰
+
+문서를 여덟 개 축으로 판정합니다. **write-document·document-refactor의 리뷰 단계가 호출하는 공용 엔진**이자, 이미 있는 문서(남이 쓴 것 포함)를 리뷰하는 **단독 진입점**입니다.
+
+- **검사 축 8종**: 사실성(하드 게이트) · 참조 유효성 · 공란 규율 · 가독성/구조 · 내부 일관성 · 독자 적합성 · 표기 · 실행가능성(티켓·PR 한정)
+- **리뷰어 2분할**: 문서 밖 자료를 들고 대조해야 하는 축은 **검증 리뷰어**(코드베이스·웹검색 권한 보유), 문서 텍스트만으로 판정되는 축은 **가독성 리뷰어**. 가독성 리뷰어에게는 근거를 주지 않습니다 — 배경 지식을 쥐여주면 "독자 적합성" 판정이 무력화되기 때문
+- **판정 3등급**: 하드 게이트 반려(사실성) / 수정 요구 / 질문. 웹검색으로 찾은 사실은 반려 근거가 아니라 질문으로만 올립니다 — 판정 기준은 "근거 대비 충실도"이지 세상의 진실이 아니므로
+- **수정 권한**: 단독 호출이면 시작할 때 물어봅니다(지적만 / 승인받고 수정 / 알아서 수정 후 보고). 공용 엔진으로 불릴 때는 제안까지만 하고 반영은 호출부가 담당
 
 ### write-wiki — 티켓 아카이브 작성
 
@@ -109,6 +118,7 @@ copilot plugin install shine-docs@shine-docs
 ```
 /shine-docs:document-refactor    # 문서 재구조화 — 대상 문서, 출력 모드(HTML/MD), 저장 위치를 물어봄
 /shine-docs:write-document       # 문서 신규 작성 — 유형(티켓/PR/제안/해설/일반), 강조 사항, 출력 방식을 물어봄
+/shine-docs:review-document      # 문서 품질 리뷰 — 대조 근거, 수정 권한, 문서 유형을 물어봄
 /shine-docs:write-wiki           # 티켓 아카이브 — 마감된 티켓 작업의 실험·결정 기록을 옵시디언 vault에 작성
 /shine-docs:explain-diff-html    # 코드 변경 해설 — diff/브랜치/PR을 지정 (하위호환 직접 호출용)
 ```
@@ -121,10 +131,12 @@ copilot plugin install shine-docs@shine-docs
 shine-docs/
 ├── skills/                       # 공용 스킬 본체 (모든 에이전트가 공유)
 │   ├── templates/                # 공용 템플릿 풀 — 문서 유형별 섹션 골격 12종
-│   ├── style/                    # 공용 스타일 가이드 (문체 writing-style.md, 리뷰 review-checklist.md, HTML 레이아웃 html-layout.md)
+│   ├── style/                    # 공용 스타일 가이드 (문체 writing-style.md, 리뷰 체크리스트 2종, HTML 레이아웃 html-layout.md)
 │   ├── document-refactor/
 │   │   └── SKILL.md
 │   ├── write-document/
+│   │   └── SKILL.md
+│   ├── review-document/
 │   │   └── SKILL.md
 │   ├── write-wiki/
 │   │   └── SKILL.md
@@ -142,7 +154,7 @@ shine-docs/
 ## 요구사항
 
 - 플러그인·스킬을 지원하는 코딩 에이전트 (Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot CLI, Kimi Code)
-- 스킬 내용은 document-refactor·write-document·write-wiki는 한국어, explain-diff-html은 영어입니다.
+- 스킬 내용은 document-refactor·write-document·review-document·write-wiki는 한국어, explain-diff-html은 영어입니다.
 
 ## 라이선스
 
