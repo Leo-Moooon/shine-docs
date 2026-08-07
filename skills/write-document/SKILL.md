@@ -49,7 +49,9 @@ description: Use when the user wants to WRITE a new document from scratch — an
   HTML=클릭 시 정오·피드백을 주는 인터랙티브 객관식, MD=`<details>` 접이식 Q&A.
 - **출력 방식** — 두 가지 중 선택:
   - **파일로 export** — 경로를 함께 묻는다(기본값: 현재 작업 디렉토리). 파일명에 날짜 접두사를
-    붙이지 않는다. HTML을 고르면 자기완결 HTML 한 파일(CSS·JS 인라인, 반응형)로 렌더링.
+    붙이지 않는다. HTML을 고르면 자기완결 HTML 한 파일(CSS·JS 인라인, 반응형)로 렌더링하되,
+    시각 골격은 `../style/html-layout.md`를 원본으로 삼는다 — 기본 CSS·퀴즈 JS를 복사해
+    시작하고 컴포넌트 카탈로그(toc, callout, flow diagram, rowcard, pill, quiz)로 조립한다.
   - **직접 작성** — 파일을 만들지 않고 대화에 본문을 그대로 출력한다(복사·붙여넣기용).
     티켓·PR 시스템에 직접 반영(Jira·GitHub 연동)은 이 스킬의 범위가 아니다 — 출력 후 세션에서
     별도로 하면 된다.

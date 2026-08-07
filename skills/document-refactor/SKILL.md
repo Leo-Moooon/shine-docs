@@ -61,8 +61,10 @@ description: Use when the user wants to restructure or refactor any document (pl
 - **Appendix — Audit Trail**: (1) 리뷰에서 반려된 유추/걸러진 내용, (2) 3라운드 소진 시 미해결 이슈, (3) 원문 근거 부재로 공란 처리된 섹션 목록.
 
 ### HTML 모드
+- 시각 골격(디자인 토큰·컴포넌트 카탈로그·기본 CSS·퀴즈 JS)은 `../style/html-layout.md`를
+  원본으로 복사해 시작하고, 필요한 컴포넌트만 덜어 쓴다. 문서마다 새 시각 언어를 만들지 않는다.
 - 자기완결 HTML 한 파일(CSS·JS 인라인). 한 페이지 + 목차. 반응형.
-- ASCII 다이어그램 금지 — HTML 도형/표/리스트로 그린다.
+- ASCII 다이어그램 금지 — HTML 도형/표/리스트로 그린다(`.flow` + `.node`가 기본 도형 가족).
 - 코드블록은 `<pre>` 또는 `white-space: pre-wrap`.
 - Quiz는 클릭 시 정답 여부·피드백을 보여주는 인터랙티브 객관식.
 
