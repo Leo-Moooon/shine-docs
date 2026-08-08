@@ -1,6 +1,6 @@
 {
   "name": "shine-docs",
   "description": "Skill set that turns documents and code changes into highly readable outputs: document-refactor, write-document, review-document, write-wiki, and explain-diff-html",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "contextFileName": "GEMINI.md"
 }
