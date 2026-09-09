@@ -80,14 +80,35 @@ codex plugin marketplace add Leo-Moooon/shine-docs --ref main
 codex plugin add shine-docs@shine-docs
 ```
 
-업데이트할 때는 마켓플레이스를 갱신한 뒤 새 대화를 시작합니다.
+설치 상태를 확인하려면:
+
+```
+codex plugin list --marketplace shine-docs --available --json
+```
+
+설치 후에는 **새 Codex 세션**을 시작합니다. 업데이트할 때는 마켓플레이스를 갱신한 뒤
+새 세션을 시작합니다.
 
 ```
 codex plugin marketplace upgrade shine-docs
 ```
 
-데스크톱 앱이나 Codex CLI의 `/plugins`에서도, 먼저 GitHub 마켓플레이스
-`Leo-Moooon/shine-docs`를 추가한 뒤 `Shine Docs` 마켓플레이스에서 설치합니다.
+#### 관리형 Codex 환경 문제 해결
+
+Orca처럼 `CODEX_HOME`을 관리하는 터미널은 일반 Codex CLI와 다른 프로필을 사용할 수
+있습니다. 일반 Codex 프로필(`~/.codex`)에 설치하려면 `CODEX_HOME`을 제거한 상태로
+실행합니다.
+
+```
+env -u CODEX_HOME -u ORCA_CODEX_HOME /opt/homebrew/bin/codex plugin marketplace add Leo-Moooon/shine-docs --ref main
+env -u CODEX_HOME -u ORCA_CODEX_HOME /opt/homebrew/bin/codex plugin add shine-docs@shine-docs
+```
+
+이 방식으로 설치한 플러그인은 같은 프로필로 시작한 Codex에서 사용합니다.
+
+```
+env -u CODEX_HOME -u ORCA_CODEX_HOME /opt/homebrew/bin/codex
+```
 
 ### Cursor
 
@@ -126,7 +147,23 @@ copilot plugin install shine-docs@shine-docs
 
 ## 사용
 
-설치 후 해당 맥락이면 에이전트가 자동으로 불러오거나, 직접 호출합니다. Claude Code 기준:
+설치 후 해당 맥락이면 에이전트가 자동으로 불러오거나, 직접 호출합니다.
+
+### Codex
+
+Codex에서는 `$`와 스킬 이름으로 직접 호출할 수 있습니다. 설치된 정확한 호출명은
+`/skills`에서 확인합니다. 플러그인 네임스페이스가 표시되면
+`$shine-docs:write-document`처럼 해당 이름을 사용합니다.
+
+```
+$document-refactor 이 회의록을 Markdown으로 재구성해줘
+$write-document 이 작업 내용으로 GitHub 버그 티켓을 작성해줘
+$review-document 이 PR 본문을 사실성·가독성 기준으로 리뷰해줘
+$write-wiki 이 완료한 티켓 작업을 위키 아카이브로 남겨줘
+$explain-diff-html 이 변경사항을 인터랙티브 HTML로 설명해줘
+```
+
+### Claude Code
 
 ```
 /shine-docs:document-refactor    # 문서 재구조화 — 대상 문서, 출력 모드(HTML/MD), 저장 위치를 물어봄
@@ -159,7 +196,7 @@ shine-docs/
 ├── .codex-plugin/plugin.json     # Codex
 ├── .cursor-plugin/plugin.json    # Cursor
 ├── .kimi-plugin/plugin.json      # Kimi Code
-├── .agents/plugins/marketplace.json  # GitHub Copilot CLI
+├── .agents/plugins/marketplace.json  # Codex·GitHub Copilot CLI 마켓플레이스
 ├── gemini-extension.json         # Gemini CLI
 └── GEMINI.md                     # Gemini 컨텍스트 파일 (스킬 라우팅)
 ```
