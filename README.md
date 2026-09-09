@@ -70,7 +70,12 @@ claude plugin install shine-docs@shine-docs
 
 ### Codex CLI
 
+이 저장소를 체크아웃한 폴더 **밖에서** 실행합니다. 저장소 안에서 실행하면
+Codex가 `.agents/plugins/marketplace.json`을 로컬 마켓플레이스로 먼저 인식해
+동일한 이름의 원격 마켓플레이스를 가릴 수 있습니다.
+
 ```
+cd /tmp
 codex plugin marketplace add Leo-Moooon/shine-docs --ref main
 codex plugin add shine-docs@shine-docs
 ```
