@@ -71,10 +71,18 @@ claude plugin install shine-docs@shine-docs
 ### Codex CLI
 
 ```
-/plugins
+codex plugin marketplace add Leo-Moooon/shine-docs --ref main
+codex plugin add shine-docs@shine-docs
 ```
 
-플러그인 검색 화면에서 이 레포 URL(`https://github.com/Leo-Moooon/shine-docs`)로 설치하거나, 커스텀 마켓플레이스로 등록해 설치합니다.
+업데이트할 때는 마켓플레이스를 갱신한 뒤 새 대화를 시작합니다.
+
+```
+codex plugin marketplace upgrade shine-docs
+```
+
+데스크톱 앱이나 Codex CLI의 `/plugins`에서도, 먼저 GitHub 마켓플레이스
+`Leo-Moooon/shine-docs`를 추가한 뒤 `Shine Docs` 마켓플레이스에서 설치합니다.
 
 ### Cursor
 
