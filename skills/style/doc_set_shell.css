@@ -1,7 +1,7 @@
 /* 문서 묶음 셸 — 상단 바 + 왼쪽 문서 목록(넓은 화면) / 접는 문서 목록(좁은 화면), 본문 칸 72ch.
    그대로 쓴다. 바꿔도 되는 것은 :root 토큰 값뿐이다(html-layout.md "문서 묶음 셸"). */
 :root {
-  /* 북아이피스(쏠북) 로고의 두 면: 인디고 #403391 · 민트 #57C29E, 본문 잉크 #1B1B29 */
+  /* 쏠북 로고의 두 면: 인디고 #403391 · 민트 #57C29E, 본문 잉크 #1B1B29 */
   --bg: #f7f7f9; --panel: #ffffff; --ink: #1b1b29; --sub: #5d5d70; --line: #e5e4ec;
   --accent: #403391; --accent-soft: #eeebf8; --accent-line: #cfc8ec;
   --accent2: #57c29e; --accent2-ink: #177a5a; --accent2-soft: #e7f6f0;
