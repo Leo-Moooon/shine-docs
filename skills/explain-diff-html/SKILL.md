@@ -25,6 +25,9 @@ Format:
 
 - Visual layout: use the shared layout system in `../style/html-layout.md` — copy its
   CSS/quiz JS as the starting point and compose the page from its component catalog.
+  That layout is the design system: it takes precedence over any publishing platform's
+  guidance to pick a per-topic palette or typography. Drop unused component rules only;
+  do not change token or rule values.
 - Output a single self-contained HTML file which includes CSS and JavaScript. Make the whole thing one long page with section headers and a table of contents. Don't use tabs for the top-level structure. Basic responsive styling so you can view it on a phone is nice too. Ask where to save it (default: the current working directory) and do not prefix the filename with a date. For example: `explanation-<slug>.html`.
 - Please write with the clarity and flow of Martin Kleppmann, making it engaging and written in classic style. Transitions between sections should be smooth.
 - Some tips on diagrams. Ideally, you should pick a small number of diagram families that can be reused throughout the explanation to explain various cases. Some useful kinds of diagrams:
