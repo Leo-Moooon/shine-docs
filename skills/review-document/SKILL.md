@@ -1,6 +1,6 @@
 ---
 name: review-document
-description: Use when a document needs a quality review — either an existing document handed over for critique (yours or someone else's), or as the shared review engine invoked by write-document and document-refactor. Checks factuality against a stated baseline, plus internal consistency, reader fit, readability, notation, blank-section discipline, reference validity, and actionability.
+description: Use when a document needs a quality review — either an existing document handed over for critique (yours or someone else's), or as the shared review engine invoked by write-document and document-refactor. Checks factuality against a stated baseline, plus internal consistency (including across pages of a multi-page document set), reader fit, readability, notation, blank-section discipline, reference validity, and actionability, with an optional pass against the Toss technical writing guide.
 ---
 
 # Review Document
@@ -31,16 +31,18 @@ description: Use when a document needs a quality review — either an existing d
 - **수정 권한**: 「지적만 하고 멈춤」 / 「항목별로 승인받고 수정」 / 「알아서 수정하고 보고」.
 - **문서 유형**: 공용 템플릿 풀 `../templates/`에서 추정해 확인받는다. 실행가능성 축을
   적용할지와 공란 규율을 판정할 템플릿이 여기서 정해진다.
+- **가이드 적합성 리뷰**: 「함께 돌림」 / 「돌리지 않음」. 문서 묶음(`doc_set`)이면
+  「함께 돌림」을 기본값으로 제시한다.
 
-## 2. 두 리뷰어 실행
+## 2. 리뷰어 실행
 
-축은 여덟 개이고, **무엇을 손에 들고 있어야 판정되는가**로 배분한다. 두 리뷰어는 서로
+축은 여덟 개이고, **무엇을 손에 들고 있어야 판정되는가**로 배분한다. 리뷰어끼리는 서로
 분리된 컨텍스트여야 하며, 초안을 쓴 작성자와도 분리되어야 한다(자기검토 금지).
 
 ### 검증 리뷰어 — `../style/verification-checklist.md` 순회
 
-문서 밖 자료를 들고 대조한다. **외부 조회 권한(코드베이스 탐색, 웹검색, URL fetch)은 이
-리뷰어에게만 있다.** 담당 축은 사실성(하드 게이트), 참조 유효성, 공란 규율.
+문서 밖 자료를 들고 대조한다. **문서 내용을 대조하는 외부 조회(코드베이스 탐색, 웹검색,
+URL fetch)는 이 리뷰어에게만 있다.** 담당 축은 사실성(하드 게이트), 참조 유효성, 공란 규율.
 
 근거가 "없음"이면 사실성 게이트는 비활성이다. 코드베이스가 있으면 참조 유효성만 보고,
 문서가 스스로 검증 가능한 주장을 했을 때만 확인해 질문으로 올린다.
@@ -58,9 +60,38 @@ description: Use when a document needs a quality review — either an existing d
 같은 대상을 두 이름으로 부르는 것, 목차와 실제 섹션 구성의 불일치. 외부 근거 없이 판정되고
 오탐이 거의 없어, 근거를 못 받은 리뷰에서도 그대로 작동한다.
 
+문서 묶음이면 페이지끼리도 대조한다. 자주 잡히는 유형은 다음과 같다.
+
+- 같은 표 칸 안의 모순("외부 호출 없음"인데 같은 칸에 "외부 API 재조회"가 있음)
+- 페이지마다 다른 수치("여러 번" / "최대 3번")
+- 같은 대상의 정의가 두 페이지에 따로 있음
+- 다른 페이지 서술과 어긋나는 조건(한쪽은 "시작할 때 정리", 다른 쪽은 "만료 시각 기준 정리")
+- 수단을 주장했지만 묶음 안의 정의에 없음("지표로 감지된다"인데 지표 목록에 그 지표가 없음)
+- 형식 규칙(writing-style §7·§13·§14)이 페이지마다 다름
+
 **실행가능성.** `issue_ticket`, `bug_ticket`, `pull_request`에만 적용한다. 읽고 나서 무엇을
 해야 하는지가 나오는가 — 재현 절차, 수용 기준, 검증 방법. `general`과 `diff_explanation`은
 독자를 이해시키는 것이 목적이므로 적용하지 않는다.
+
+### 가이드 적합성 리뷰어 (선택) — 토스 테크니컬 라이팅 가이드 원문 대조
+
+같은 문서를 스타일 가이드의 눈으로 다시 본다. 문서 묶음이면 기본으로 돌리고, 나머지는
+호출부나 Intake가 요청할 때만 돌린다. 가독성 리뷰어와 분리된 컨텍스트로 실행한다 — 한
+컨텍스트에서 두 관점을 함께 보면 한쪽이 묻힌다.
+
+- **받는 것**: 문서 텍스트, `../style/writing-style.md`, `../style/doc-types.md`, 문서
+  묶음이면 `../templates/doc_set.md`. 근거는 주지 않는다.
+- **가이드 원문을 매번 다시 읽는다** — https://github.com/toss/technical-writing 을 임시
+  디렉토리에 clone해 `docs/` 아래 `overview.md`, `type/`, `architecture/`, `sentence/`,
+  `tutorial/structure.mdx`를 정독한다. 기억이나 번안본 요약으로 대신하지 않는다. 가이드
+  원문 조회는 문서 내용을 대조하는 외부 조회가 아니므로 이 리뷰어에게도 허용한다.
+- **판정 대상**: 문서(페이지)마다 유형 요건을 지키는지(`doc-types.md`의 유형과 적용
+  포인트, `type/*.mdx` 체크리스트), 정보 구조(`architecture/*`), 문장(`sentence/*`).
+  축으로는 가독성·구조와 표기에 속한다.
+- **지적마다 가이드 파일과 체크리스트 항목을 인용한다**(예: `type/reference.mdx` "일관된
+  구조로 작성해요").
+- **의도적 차이는 위반으로 치지 않는다** — writing-style "참고 출처"에 적힌 차이(어미,
+  목록형, 최종 결정만)에 해당하면 리포트의 "의도적 차이" 절에 따로 적는다.
 
 ## 3. 판정
 
@@ -83,7 +114,8 @@ description: Use when a document needs a quality review — either an existing d
 
 판정 한 줄로 시작한다(통과 / 수정 요구 / 하드 게이트 반려). 지적은 축별로 묶고, 항목마다
 문제가 있는 위치를 인용하고, 위반한 축과 근거가 되는 절을 밝히고, 수정 제안을 단다. 질문은
-지적과 섞지 않고 따로 모은다.
+지적과 섞지 않고 따로 모은다. 문서 묶음이면 위치에 페이지를 함께 적는다. 가이드 적합성
+리뷰어는 "의도적 차이"를 지적·질문과 섞지 않고 마지막에 따로 모은다.
 
 ```
 판정: 수정 요구 (하드 게이트 통과)
@@ -100,7 +132,23 @@ description: Use when a document needs a quality review — either an existing d
 - "p95 240ms" 수치의 출처를 근거에서 찾지 못했다. 어디서 온 값인가?
 ```
 
-## 5. 반영 (단독 호출 전용)
+## 5. 반영
+
+### 반영 순서 (호출부 공통)
+
+공용 엔진으로 불렸으면 호출부의 작성자 컨텍스트가, 단독 호출이면 이 스킬이 이 순서로
+반영한다.
+
+1. 리뷰어들의 리포트를 하나로 합치고 중복 지적을 묶는다.
+2. 여러 곳에 걸친 지적은 "통일 규칙"(예: "lede는 '~를 다룹니다.'로 끝낸다")으로 먼저
+   정한다.
+3. 통일 규칙을 문서(묶음) 전체에 한 번에 반영한다. 지적된 위치만 고치면 지적되지 않은
+   같은 패턴이 남는다.
+4. 리뷰어 질문 중 코드·자료로 확인할 수 있는 것은 직접 확인해 반영한다. 확인 결과가
+   문서 서술과 다르면 그 서술을 고친다.
+5. 원래 작성자만 아는 것은 질문으로 남긴다.
+
+### 수정 권한 (단독 호출 전용)
 
 Intake에서 승인된 수정 권한을 따른다. 「지적만」이면 리포트에서 멈추고, 「승인받고 수정」이면
 항목별로 확인한 뒤 반영하고, 「알아서 수정」이면 반영한 다음 무엇을 왜 고쳤는지 보고한다.
